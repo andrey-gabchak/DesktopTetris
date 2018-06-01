@@ -7,14 +7,14 @@ import static com.company.Constants.*;
 
 class Figure {
     private Executor executor;
-    private ArrayList<Block> figure = new ArrayList<Block>();
+    private ArrayList<Block> figure = new ArrayList<>();
     private int[][] shape = new int[4][4];
-    private int type, size, color;
+    private int size, color;
     private int x = 3, y = 0; // starting left up corner
 
     Figure(Executor executor) {
         this.executor = executor;
-        type = executor.random.nextInt(SHAPES.length);
+        int type = executor.random.nextInt(SHAPES.length);
         size = SHAPES[type][4][0];
         color = SHAPES[type][4][1];
         if (size == 4) y = -1;
@@ -23,7 +23,7 @@ class Figure {
         createFromShape();
     }
 
-    void createFromShape() {
+    private void createFromShape() {
         for (int x = 0; x < size; x++)
             for (int y = 0; y < size; y++)
                 if (shape[y][x] == 1) figure.add(new Block(x + this.x, y + this.y));
@@ -43,7 +43,7 @@ class Figure {
         for (Block block : figure) executor.mine[block.getY()][block.getX()] = color;
     }
 
-    boolean isTouchWall(int direction) {
+    private boolean isTouchWall(int direction) {
         for (Block block : figure) {
             if (direction == LEFT && (block.getX() == 0 || executor.mine[block.getY()][block.getX() - 1] > 0)) return true;
             if (direction == RIGHT && (block.getX() == FIELD_WIDTH - 1 || executor.mine[block.getY()][block.getX() + 1] > 0)) return true;
@@ -66,7 +66,7 @@ class Figure {
 
     void drop() { while (!isTouchGround()) stepDown(); }
 
-    boolean isWrongPosition() {
+    private boolean isWrongPosition() {
         for (int x = 0; x < size; x++)
             for (int y = 0; y < size; y++)
                 if (shape[y][x] == 1) {
@@ -77,7 +77,7 @@ class Figure {
         return false;
     }
 
-    void rotateShape(int direction) {
+    private void rotateShape(int direction) {
         for (int i = 0; i < size/2; i++)
             for (int j = i; j < size-1-i; j++)
                 if (direction == RIGHT) { // clockwise
