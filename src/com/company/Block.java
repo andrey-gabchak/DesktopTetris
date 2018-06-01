@@ -8,7 +8,7 @@ import static com.company.Constants.BLOCK_SIZE;
 class Block { // building element for Figure
     private int x, y;
 
-    public Block(int x, int y) {
+    Block(int x, int y) {
         setX(x);
         setY(y);
     }
