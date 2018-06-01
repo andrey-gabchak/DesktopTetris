@@ -9,15 +9,14 @@ import static com.company.Constants.*;
 
 class Executor extends JFrame {
 
-    static final int[] SCORES = {100, 300, 700, 1500};
-    int gameScore = 0;
+    private final int[] SCORES = {100, 300, 700, 1500};
+    private int gameScore = 0;
     int[][] mine = new int[FIELD_HEIGHT + 1][FIELD_WIDTH]; // mine/glass
-    JFrame frame;
-    Canvas canvas = new Executor.Canvas();
+    private Canvas canvas = new Executor.Canvas();
     Random random = new Random();
-    Figure figure = new Figure(this);
-    boolean gameOver = false;
-    static final int[][] GAME_OVER_MSG = {
+    private Figure figure = new Figure(this);
+    private boolean gameOver = false;
+    private final int[][] GAME_OVER_MSG = {
             {0,1,1,0,0,0,1,1,0,0,0,1,0,1,0,0,0,1,1,0},
             {1,0,0,0,0,1,0,0,1,0,1,0,1,0,1,0,1,0,0,1},
             {1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1},
@@ -32,7 +31,7 @@ class Executor extends JFrame {
             {0,1,1,0,0,1,0,0,0,0,0,1,1,0,0,1,0,0,1,0}};
 
     public static void main(String[] args) {
-        new Executor().go();
+        new Executor().start();
     }
 
     Executor() {
@@ -56,7 +55,7 @@ class Executor extends JFrame {
         Arrays.fill(mine[FIELD_HEIGHT], 1); // create a ground for mines
     }
 
-    void go() { // main loop of game
+    void start() { // main loop of game
         while (!gameOver) {
             try {
                 Thread.sleep(SHOW_DELAY);
